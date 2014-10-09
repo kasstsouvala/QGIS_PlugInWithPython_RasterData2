@@ -230,11 +230,25 @@ class RasterData02:
             Latmax = self.dlg.doubleSpinBoxLatmax.value()
             Latmin = self.dlg.doubleSpinBoxLatmin.value()
             path = self.dlg.lineEditPath.text()
+            nameSave = self.dlg.lineEditName_2.text()
             name = self.dlg.lineEditName.text()
+            fileForm = self.dlg.lineEditExcel.text()
 
             #Novalue = self.dlg.doubleSpinBoxNovalue.value()
             save = self.dlg.lineEditSave.text()
-
+            
+            name1 = nameSave+"1"
+            name2 = nameSave+"2"
+            name3 = nameSave+"3"
+            name4 = nameSave+"4"
+            name5 = nameSave+"5"
+            name6 = nameSave+"6"
+            name7 = nameSave+"7"
+            name8 = nameSave+"8"
+            name9 = nameSave+"9"
+            name10 = nameSave+"10"
+            name11 = nameSave+"11"
+            
             #call the selected layer:
             #index = self.dlg.comboBoxRaster.currentIndex()
             #ds = self.dlg.comboBoxRaster.itemData(index)
@@ -246,13 +260,38 @@ class RasterData02:
             gdal.AllRegister()
             ds = gdal.Open(name, GA_ReadOnly)
 
-            c= csv.writer(open(save, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
-            c.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            #c= csv.writer(open(save, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c1= csv.writer(open(save+name1+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c2= csv.writer(open(save+name2+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c3= csv.writer(open(save+name3+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c4= csv.writer(open(save+name4+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c5= csv.writer(open(save+name5+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c6= csv.writer(open(save+name6+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c7= csv.writer(open(save+name7+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c8= csv.writer(open(save+name8+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c9= csv.writer(open(save+name9+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c10= csv.writer(open(save+name10+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            c11= csv.writer(open(save+name11+fileForm, "wb"),  delimiter=',' , lineterminator="\n")#, sys.stdout, lineterminator='\n') #lineterminator='\n' OR , delimiter=','
+            
+
+            #c.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c1.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c2.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c3.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c4.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c5.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c6.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c7.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c8.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c9.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c10.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+            c11.writerow(['Value','Longitude', 'Latitude', 'CoordString'])
+
 
             # get georeference info
             transform = ds.GetGeoTransform()
-            xOrigin = transform[0]- (transform[1])#we do /2 to get the center of the cell
-            yOrigin = transform[3] - (transform[5])
+            xOrigin = transform[0]+(transform[1]/2)#we do /2 to get the center of the cell
+            yOrigin = transform[3]+(transform[5]/2)
             pixelWidth = transform[1]
             pixelHeight = transform[5]
 
@@ -299,10 +338,33 @@ class RasterData02:
                         #value = data[0,0]
                         #s = str(value)
 
-            for t in range(len(valueCell)):
-                c.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+            #for t in range(len(valueCell)):
+                #c.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
                 #print (valueCell[t], xxValues[t], yyValues[t])
-
+            for t in range(len(valueCell)):
+                if (t>=1)&(t<=1000000):
+                    c1.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>1000000)&(t<=2000000):
+                    c2.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>2000000)&(t<=3000000):
+                    c3.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>3000000)&(t<=4000000):
+                    c4.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>4000000)&(t<=5000000):
+                    c5.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>5000000)&(t<=6000000):
+                    c6.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>6000000)&(t<=7000000):
+                    c7.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>7000000)&(t<=8000000):
+                    c8.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>8000000)&(t<=9000000):
+                    c9.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                elif (t>9000000)&(t<=10000000):
+                    c10.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                else:
+                    c11.writerow([valueCell[t], xxValues[t], yyValues[t], string[t]])
+                    
             #figure out how long the script took to run
             endTime = time.time()
             endTimeSec = (endTime - startTime)
